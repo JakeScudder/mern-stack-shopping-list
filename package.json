@@ -7,7 +7,7 @@
     "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "cd client/react-shopping && npm start",
+    "client": "npm start --prefix client/react-shopping",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Jake Morris",
