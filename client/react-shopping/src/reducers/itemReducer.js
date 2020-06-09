@@ -1,13 +1,13 @@
-import uuid from "react-uuid";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from "../actions/types";
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING,
+} from "../actions/types";
 
 const initialState = {
-  items: [
-    { id: uuid(), name: "Hemp Protein" },
-    { id: uuid(), name: "Kale" },
-    { id: uuid(), name: "Curry Chickpea Salad" },
-    { id: uuid(), name: "Kombucha" },
-  ],
+  items: [],
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -15,6 +15,28 @@ export default function (state = initialState, action) {
     case GET_ITEMS:
       return {
         ...state,
+        items: action.payload,
+        loading: false,
       };
+
+    case ADD_ITEM:
+      return {
+        ...state,
+        items: [action.payload, ...state.items],
+      };
+
+    case DELETE_ITEM:
+      return {
+        ...state,
+        items: state.items.filter((item) => item._id !== action.payload),
+      };
+
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
+    default:
+      return state;
   }
 }
